@@ -1,4 +1,5 @@
 # Weaver - Web Directory Bruteforcer
+![size](https://img.shields.io/github/size/ak-w/weaver/weaver.py.svg)
 
 ![](spider.gif)
 
