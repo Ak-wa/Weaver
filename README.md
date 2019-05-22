@@ -1,4 +1,4 @@
-# Weaver - Directory Bruteforcer
+# Weaver - Web Directory Bruteforcer
 
 ![](spider.gif)
 
