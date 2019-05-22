@@ -1,7 +1,7 @@
 # Weaver - Web Directory Bruteforcer
-![size](https://img.shields.io/github/size/ak-w/weaver/weaver.py.svg)
-![lastcommit](https://img.shields.io/github/last-commit/ak-w/weaver.svg)
-![follow](https://img.shields.io/github/followers/ak-w.svg?label=Follow&style=social)
+![size](https://img.shields.io/github/size/ak-wa/weaver/weaver.py.svg)
+![lastcommit](https://img.shields.io/github/last-commit/ak-wa/weaver.svg)
+![follow](https://img.shields.io/github/followers/ak-wa.svg?label=Follow&style=social)
 
 ![](spider.gif)
 
