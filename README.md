@@ -2,7 +2,7 @@
 
 ![](spider.gif)
 
-* Python 3.x
+* Detects different kind of 404's
 * Multithreaded
 * cute spider
 
