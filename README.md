@@ -1,4 +1,5 @@
 # Weaver
+![] (spider.gif)
 Multithreaded Web-Directory Bruteforcer, Python 3.x
 
 Usage:
