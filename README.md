@@ -1,7 +1,11 @@
-# Weaver
-## Multithreaded Web-Directory Bruteforcer, Python 3.x
+# Weaver - Directory Bruteforcer
+
 ![](spider.gif)
 
+* Python 3.x
+* Multithreaded
+* cute spider
 
-Usage:
-python weaver.py example.com example_list.txt
+
+### Usage:
+`python weaver.py <url> <dir_list>`
