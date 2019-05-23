@@ -41,6 +41,7 @@ wordlist_list = list(open(wordlist))
 threads = []
 count = 0
 robots_path_count = 0
+Zcounter = 0
 def ascii():
     print("""
            ____                      ,
@@ -83,7 +84,6 @@ def wordlist_count():
     if robots_path_count != 0:
         count += robots_path_count
     sys.stdout.write("[ ] Wordlist length: %d\n"%count)
-    Zcounter = 0
 
 def urlenum(current_dir): # Interprets HTTP Status Codes & sorts into lists
         try:
