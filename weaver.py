@@ -8,8 +8,7 @@ try:
     import threading
     from requests.exceptions import ConnectionError
 except ImportError:
-    os.system('pip install requests')
-    os.system('pip install progress')
+    os.system('pip install -r requirements.txt')
     import requests
     import sys
     import time
@@ -64,39 +63,33 @@ class DirBruter:
     def __urlenum(self, current_dir):  # Interprets HTTP Status Codes & sorts into lists
         try:
             s = requests.get(target + "/" + current_dir, headers=self.__headers)
-            if str('FrontPage Error') in str(s.text):
-                global front_page_path
-                global front_page_error
-                front_page_error = 1
-                front_page_path = current_dir
+            if '404' in str(s.text):
+                self.__Zcounter = self.__Zcounter + 1
+                pass
             else:
-                if '404' in str(s.text):
+                if 'Not' and 'Found' in str(s.text):
                     self.__Zcounter = self.__Zcounter + 1
                     pass
                 else:
-                    if 'Not' and 'Found' in str(s.text):
-                        self.__Zcounter = self.__Zcounter + 1
+                    if str(s.status_code).startswith("2"):
+                        self.__found_directories.append(current_dir)
+                    else:
                         pass
-                    else:
-                        if str(s.status_code).startswith("2"):
-                            self.__found_directories.append(current_dir)
-                        else:
-                            pass
-                if str(s.status_code).startswith("5"):
-                    self.__error500_directories.append(current_dir)
+            if str(s.status_code).startswith("5"):
+                self.__error500_directories.append(current_dir)
+            else:
+                pass
+            if str(s.status_code).startswith("4"):
+                if s.status_code == 404:
+                    self.__Zcounter = self.__Zcounter + 1
                 else:
-                    pass
-                if str(s.status_code).startswith("4"):
-                    if s.status_code == 404:
-                        self.__Zcounter = self.__Zcounter + 1
-                    else:
-                        self.__forbidden_directories.append(current_dir)
-                else:
-                    pass
-                if str(s.status_code).startswith("3"):
-                    self.__found_directories.append(current_dir)
-                else:
-                    pass
+                    self.__forbidden_directories.append(current_dir)
+            else:
+                pass
+            if str(s.status_code).startswith("3"):
+                self.__found_directories.append(current_dir)
+            else:
+                pass
         except KeyboardInterrupt:
             print("done")
         except requests.exceptions.ConnectionError:
@@ -151,10 +144,6 @@ class DirBruter:
                 for directory in self.__forbidden_directories:
                     sys.stdout.write("[+] Forbidden: %s/%s" % (target, directory))
                 sys.stdout.write("[+] 404 received: %d" % self.__Zcounter)
-                if front_page_error == 1:
-                    sys.stdout.write("[+] Frontpage error found on: %s" % front_page_path)
-                else:
-                    pass
                 sys.exit()
 
             except KeyboardInterrupt:
@@ -174,11 +163,6 @@ class DirBruter:
                     for directory in self.__forbidden_directories:
                         sys.stdout.write("[+] Forbidden: %s/%s" % (target, directory))
                     sys.stdout.write("[+] 404 received: %d\n" % self.__Zcounter)
-                    if front_page_error == 1:
-                        sys.stdout.write("[+] Frontpage error found on: %s" % front_page_path)
-                        sys.stdout.write("[+] You might want to read this: https://www.exploit-db.com/exploits/19897")
-                    else:
-                        pass
                     sys.exit()
                 except Exception as e:
                     raise e
