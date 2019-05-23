@@ -28,8 +28,6 @@ class DirBruter:
         self.__redirect_directories = []
         self.__error500_directories = []
         self.__forbidden_directories = []
-        self.__front_page_path = ""
-        self.__front_page_error = 0
         self.__timeout = 1
         self.__headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'}
         self.__target = target_url
@@ -66,11 +64,6 @@ class DirBruter:
     def __urlenum(self, current_dir):  # Interprets HTTP Status Codes & sorts into lists
         try:
             s = requests.get(target + "/" + current_dir, headers=self.__headers)
-            if str('FrontPage Error') in str(s.text):
-                global front_page_path
-                global front_page_error
-                front_page_error = 1
-                front_page_path = current_dir
             else:
                 if '404' in str(s.text):
                     self.__Zcounter = self.__Zcounter + 1
@@ -153,8 +146,6 @@ class DirBruter:
                 for directory in self.__forbidden_directories:
                     sys.stdout.write("[+] Forbidden: %s/%s" % (target, directory))
                 sys.stdout.write("[+] 404 received: %d" % self.__Zcounter)
-                if front_page_error == 1:
-                    sys.stdout.write("[+] Frontpage error found on: %s" % front_page_path)
                 else:
                     pass
                 sys.exit()
@@ -176,9 +167,6 @@ class DirBruter:
                     for directory in self.__forbidden_directories:
                         sys.stdout.write("[+] Forbidden: %s/%s" % (target, directory))
                     sys.stdout.write("[+] 404 received: %d\n" % self.__Zcounter)
-                    if front_page_error == 1:
-                        sys.stdout.write("[+] Frontpage error found on: %s" % front_page_path)
-                        sys.stdout.write("[+] You might want to read this: https://www.exploit-db.com/exploits/19897")
                     else:
                         pass
                     sys.exit()
