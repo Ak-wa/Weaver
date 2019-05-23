@@ -49,7 +49,7 @@ class DirBruter:
         try:
             _ = requests.get(target + "/robots.txt", headers=self.__headers, verify=True)
         except requests.exceptions.SSLError:
-            _ = input("[!] The SSL certificate cannot be verified. Continue? (y):")
+            _ = input("[!] The SSL certificate cannot be varified. Continue? (y/n):")
             if _:
                 if _ != "y":
                     print("[!] Aborting. SSL certificate not trusted.")
