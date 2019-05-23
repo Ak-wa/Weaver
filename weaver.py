@@ -21,6 +21,8 @@ except ImportError:
 
 class DirBruter:
     def __init__(self, target_url, wordlist_file):
+        requests.packages.urllib3.disable_warnings()  # Mute SSL-Errors
+
         self.__found_directories = []
         self.__redirect_directories = []
         self.__error500_directories = []
@@ -41,10 +43,24 @@ class DirBruter:
         self.__wordlist_count()
         self.__check_redirect()
 
+        self.__verify_ssl_cert()
+
+    def __verify_ssl_cert(self):
+        try:
+            _ = requests.get(target + "/robots.txt", headers=self.__headers, verify=True)
+        except requests.exceptions.SSLError:
+            _ = input("[!] The SSL certificate cannot be varified. Continue? (y):")
+            if _:
+                if _ != "y":
+                    print("[!] Aborting. SSL certificate not trusted.")
+                    exit()
+            else:
+                pass
+
     def __check_robots(self):
         try:
             sys.stdout.write("[+] Checking for a robots.txt\n")
-            html = requests.get(target + "/robots.txt", headers=self.__headers).text
+            html = requests.get(target + "/robots.txt", headers=self.__headers, verify=False).text
             for line in html.split("\n"):
                 if line.startswith("Disallow: "):
                     self.__wordlist_list.append(str(line.split(":")[1]))
@@ -62,7 +78,7 @@ class DirBruter:
 
     def __urlenum(self, current_dir):  # Interprets HTTP Status Codes & sorts into lists
         try:
-            s = requests.get(target + "/" + current_dir, headers=self.__headers)
+            s = requests.get(target + "/" + current_dir, headers=self.__headers, verify=False)
             if '404' in str(s.text):
                 self.__Zcounter = self.__Zcounter + 1
                 pass
@@ -99,7 +115,7 @@ class DirBruter:
             sys.exit()
 
     def __check_redirect(self):
-        r = requests.get(self.__target)
+        r = requests.get(self.__target, verify=False)
         if r.url != (self.__target + "/"):
             sys.stdout.write("[ ] You got redirected to %s\n" % (str(r.url)))
             follow_redirect = input("[ ] Want to follow? y/n : ")
