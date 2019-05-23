@@ -107,16 +107,14 @@ class DirBruter:
             print(e)
             sys.exit()
 
-    @staticmethod
-    def __check_redirect():
-        global target
-        r = requests.get(target)
-        if r.url != (target + "/"):
+    def __check_redirect(self):
+        r = requests.get(self.__target)
+        if r.url != (self.__target + "/"):
             sys.stdout.write("[ ] You got redirected to %s\n" % (str(r.url)))
             follow_redirect = input("[ ] Want to follow? y/n : ")
             if follow_redirect == 'y':
-                target = r.url
-                sys.stdout.write("[+] Followed redirect: %s" % target)
+                self.__target = r.url
+                sys.stdout.write("[+] Followed redirect: %s" % self.__target)
             else:
                 pass
 
