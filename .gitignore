@@ -1,0 +1,5 @@
+# Ignore PyCharm working directory
+.idea/
+
+# Ignore "testing facility"
+sandbox.*
