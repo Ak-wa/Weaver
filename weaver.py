@@ -155,10 +155,16 @@ class DirBruter:
                         sys.stdout.write("[+] Code 200 : 0")
                     else:
                         pass
-                for response in self.__error500_directories:
-                    sys.stdout.write("[+] Code 500: %s/%s" % (target, response))
-                for directory in self.__forbidden_directories:
-                    sys.stdout.write("[+] Forbidden: %s/%s" % (target, directory))
+                try:
+                    for response in self.__error500_directories:
+                        sys.stdout.write("[+] Code 500: %s/%s" % (target, response))
+                except:
+                    pass
+                try:
+                    for directory in self.__forbidden_directories:
+                        sys.stdout.write("[+] Forbidden: %s/%s" % (target, directory))
+                except:
+                    pass
                 sys.stdout.write("[+] 404 received: %d" % self.__Zcounter)
                 sys.exit()
 
