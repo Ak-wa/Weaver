@@ -3,7 +3,6 @@ try:
     import sys
     import time
     import os
-    import signal
     from progress.bar import Bar
     from progress.spinner import PixelSpinner
     import threading
@@ -15,7 +14,6 @@ except ImportError:
     import sys
     import time
     import os
-    import signal
     from progress.bar import Bar
     from progress.spinner import PixelSpinner
     import threading
