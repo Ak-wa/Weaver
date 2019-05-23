@@ -18,6 +18,7 @@ if len(sys.argv) < 3:
     sys.stdout.write("[ ] Usage: python weaver.py <example.com> <wordlist.txt>\n")
     sys.exit()
 
+
 found_directories = []
 redirect_directories = []
 error500_directories = []
