@@ -28,7 +28,6 @@ front_page_path = ""
 front_page_error = 0
 timeout = 1
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'}
-# target = 'http://www.usnintl.com'
 target = sys.argv[1]
 wordlist = sys.argv[2]
 wordlist_list = list(open(wordlist))
