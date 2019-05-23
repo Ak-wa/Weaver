@@ -66,8 +66,8 @@ class DirBruter:
                     self.__wordlist_list.append(str(line.split(":")[1]))
                     self.__robots_path_count += 1
             sys.stdout.write("[+] Wrote contents of robots.txt into wordlist\n")
-        except:  # TODO: unknown exception
-            sys.stdout.write("[+] No robots.txt found")
+        except:
+            sys.stdout.write("[+] No robots.txt found\n")
 
     def __wordlist_count(self):
         for _ in self.__wordlist_list:
