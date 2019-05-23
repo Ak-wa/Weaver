@@ -6,9 +6,10 @@
 
 ![](spider.gif)
 
-* Detects different kind of 404's
+* Python 3.x
 * Multithreaded
-* cute spider
+* cute spider gif
+* Installs missing modules with pip
 
 
 ### Usage:
