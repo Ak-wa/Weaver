@@ -8,6 +8,7 @@ try:
     import threading
     from requests.exceptions import ConnectionError
 except ImportError:
+    import os
     os.system('pip install -r requirements.txt')
     import requests
     import sys
