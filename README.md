@@ -6,11 +6,13 @@
 
 ![](spider.gif)
 
-* Python 3.x
-* Multithreaded
-* cute spider gif
-* Installs missing modules with pip
-
+* Configurable queue threading
+* Progressbar without modules
+* 404 Counter
+* Adds entries of robots.txt to the wordlist, if existing
+* Written as class, can be used in other projects
 
 ### Usage:
-`python weaver.py <url> <dir_list>`
+`python weaver.py <url> <dir_list> <threads>`  
+#### example:  
+`python weaver.py https://example.com /usr/share/wordlists/dirb/common.txt 30`
