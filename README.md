@@ -15,4 +15,4 @@
 ### Usage:
 `python weaver.py <url> <dir_list> <threads>`  
 #### example:  
-`python weaver.py https://example.com /usr/share/wordlists/dirb/common.txt 30`
+`python weaver.py https://example.com common.txt 30`
