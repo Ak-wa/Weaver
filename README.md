@@ -4,7 +4,7 @@
 ![lastcommit](https://img.shields.io/github/last-commit/ak-wa/weaver.svg)
 ![follow](https://img.shields.io/github/followers/ak-wa.svg?label=Follow&style=social)
 
-![](spider.gif)
+![](weaver3.gif)
 
 * Configurable queue threading
 * Progressbar without modules
