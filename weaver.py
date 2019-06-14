@@ -246,9 +246,9 @@ class DirBruter:
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        sys.stdout.write("[-] You forgot to add an url or wordlist\n")
-        sys.stdout.write("[ ] Usage: python weaver.py <example.com> <wordlist.txt>\n")
+    if len(sys.argv) < 4:
+        sys.stdout.write("[-] You forgot to add an argument!\n")
+        sys.stdout.write("[ ] Usage: python weaver.py <example.com> <wordlist.txt> <threads>\n")
         sys.exit()
     target = sys.argv[1]
     wordlist = sys.argv[2]
@@ -268,7 +268,7 @@ if __name__ == '__main__':
           ||                        \\    \|
           ||                         \\    '
           |/                          \\
-                 Weaver v.1.0          ||
+                 Weaver v.3.0          ||
                                        ||
                                        \\
                                         '
