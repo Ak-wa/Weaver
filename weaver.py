@@ -85,8 +85,6 @@ class DirBruter:
         self.__redirect_directories = []
         self.__error500_directories = []
         self.__forbidden_directories = []
-        self.__front_page_path = ""
-        self.__front_page_error = 0
         self.__timeout = 1
         self.__headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'}
         self.__target = target_url
@@ -120,12 +118,16 @@ class DirBruter:
     def __check_robots(self):
         try:
             sys.stdout.write("[+] Checking for a robots.txt\n")
-            html = requests.get(target + "/robots.txt", headers=self.__headers, verify=False).text
-            for line in html.split("\n"):
-                if line.startswith("Disallow: "):
-                    self.__wordlist_list.append(str(line.split(":")[1]))
-                    self.__robots_path_count += 1
-            sys.stdout.write("[+] Wrote contents of robots.txt into wordlist\n")
+            html = requests.get(target + "/robots.txt", headers=self.__headers, verify=False)
+            html_text = html.text
+            if html.status_code == 200:
+                for line in html_text.split("\n"):
+                    if line.startswith("Disallow: "):
+                        self.__wordlist_list.append(str(line.split(":")[1]))
+                        self.__robots_path_count += 1
+                sys.stdout.write("[+] Wrote contents of robots.txt into wordlist\n")
+            else:
+                raise Exception
         except:
             sys.stdout.write("[+] No robots.txt found\n")
 
@@ -141,6 +143,7 @@ class DirBruter:
             current_dir = self.__dirs.get()
             if self.running:
                 try:
+                    current_dir = current_dir.replace('\n','')
                     s = requests.get(target + "/" + current_dir, headers=self.__headers, verify=False, timeout=3)
                     if '404' in str(s.text):
                         self.__not_found_count = self.__not_found_count + 1
@@ -153,7 +156,10 @@ class DirBruter:
                             if str(s.status_code).startswith("2"):
                                 self.__found_directories.append(current_dir)
                             else:
-                                pass
+                                if s.status_code == 200:
+                                    self.__found_directories.append(current_dir)
+                                else:
+                                    pass
                     if str(s.status_code).startswith("5"):
                         self.__error500_directories.append(current_dir)
                     else:
@@ -210,13 +216,14 @@ class DirBruter:
                     self.PB.show_progress()
                 except NameError:
                     raise TypeError  # print results
+                raise TypeError  # print results
             except KeyboardInterrupt:
                 raise TypeError
             except TypeError:
                 # print results
                 print("\n")
                 for directory in self.__found_directories:
-                    sys.stdout.write("[+] %s/%s" % (target, directory))
+                    sys.stdout.write("[+] %s/%s\n" % (target, directory))
                     if not self.__found_directories:
                         sys.stdout.write("[+] Code 200 : 0")
                     else:
